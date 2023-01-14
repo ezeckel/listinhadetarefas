@@ -1,17 +1,26 @@
-// seleção dos elements
+// Seleção de elementos
 const todoForm = document.querySelector("#todo-form");
+
 const todoInput = document.querySelector("#todo-input");
+
 const todoList = document.querySelector("#todo-list");
+
 const editForm = document.querySelector("#edit-form");
+
 const editInput = document.querySelector("#edit-input");
+
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
+
 const searchInput = document.querySelector("#search-input");
+
 const eraseBtn = document.querySelector("#erase-button");
+
 const filterBtn = document.querySelector("#filter-select");
+
 
 let oldInputValue;
 
-// as functions
+// Funções
 const saveTodo = (text, done = 0, save = 1) => {
   const todo = document.createElement("div");
   todo.classList.add("todo");
@@ -35,7 +44,7 @@ const saveTodo = (text, done = 0, save = 1) => {
   deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
   todo.appendChild(deleteBtn);
 
-  // localstorage
+  // Utilizando dados da localStorage
   if (done) {
     todo.classList.add("done");
   }
@@ -63,6 +72,8 @@ const updateTodo = (text) => {
 
     if (todoTitle.innerText === oldInputValue) {
       todoTitle.innerText = text;
+
+      // Utilizando dados da localStorage
       updateTodoLocalStorage(oldInputValue, text);
     }
   });
@@ -95,17 +106,24 @@ const filterTodos = (filterValue) => {
 
     case "done":
       todos.forEach((todo) =>
+                    
         todo.classList.contains("done")
+                    
           ? (todo.style.display = "flex")
+                    
           : (todo.style.display = "none")
       );
 
       break;
 
     case "todo":
+      
       todos.forEach((todo) =>
+                    
         !todo.classList.contains("done")
+                    
           ? (todo.style.display = "flex")
+                    
           : (todo.style.display = "none")
       );
 
@@ -117,8 +135,13 @@ const filterTodos = (filterValue) => {
 };
 
 // Eventos
+
+
+
+
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  
 
   const inputValue = todoInput.value;
 
@@ -128,12 +151,21 @@ todoForm.addEventListener("submit", (e) => {
 });
 
 document.addEventListener("click", (e) => {
+  
   const targetEl = e.target;
+  
   const parentEl = targetEl.closest("div");
+  
   let todoTitle;
+  
+  
+  
+  
 
   if (parentEl && parentEl.querySelector("h3")) {
     todoTitle = parentEl.querySelector("h3").innerText || "";
+    
+    
   }
 
   if (targetEl.classList.contains("finish-todo")) {
@@ -163,12 +195,16 @@ cancelEditBtn.addEventListener("click", (e) => {
 });
 
 editForm.addEventListener("submit", (e) => {
+  
   e.preventDefault();
 
   const editInputValue = editInput.value;
-
-  if (editInputValue) {
+  
+  
+  if (editInputValue) { 
+    
     updateTodo(editInputValue);
+    
   }
 
   toggleForms();
@@ -194,7 +230,7 @@ filterBtn.addEventListener("change", (e) => {
   filterTodos(filterValue);
 });
 
-// local storage
+// Local Storage
 const getTodosLocalStorage = () => {
   const todos = JSON.parse(localStorage.getItem("todos")) || [];
 
